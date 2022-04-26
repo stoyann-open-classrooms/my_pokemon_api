@@ -3,6 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const helper = require("./helper");
+const favicon = require("serve-favicon");
 const pokemons = require("./mock-pokemon");
 
 const app = express();
@@ -42,6 +43,13 @@ app.get("/api/pokemon/:id", (req, res) => {
 app.get("/api/pokemons", (req, res) => {
   const message = `Votre requête c’est bien passer une liste de ${pokemons.length} pokémons à été trouver.`;
   res.json(helper.success(message, pokemons));
+});
+
+app.post("/api/pokemons", (req, res) => {
+  const id = helper.getUniqueId(pokemons);
+  const pokemonCreated = { ...req.body, ...{ id: id, created: new Date() } };
+  pokemons.push(pokemonCreated);
+  const message = `Le pokemon ${pokemonCreated}.name} a été ajouter a la base de données`;
 });
 
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
