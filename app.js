@@ -1,12 +1,29 @@
 // ======================= point de terminaison ====================
-
+// Importation des paquets NPM
 const express = require("express");
+const morgan = require("morgan");
 const helper = require("./helper");
 const pokemons = require("./mock-pokemon");
 
 const app = express();
 // declaration du port de l'api rest
 const port = 5000;
+
+// ================================ les Middlewares ==========================
+//les middlewares sont une fonctionnalitées d'express qui effectue des tâches trés diverse
+
+//Les 5 types de middlewares:
+
+// 1___ Les middlewares d'application
+// 2___ Les middlewares de router
+// 3___  Les middlewares de traitement d'erreurs
+// 4___ Les middlewares intégré
+// 5___ Le middlewares d'application
+// 6___ Le middlewares tiers
+
+// ++++++++++++++++ Middlewares avec le paquet morgan ++++++++++++++++
+app.use(morgan("dev"));
+// ===========================================================================
 
 // End point
 app.get("/", (req, res) => res.send("Bienvenue sur l'api rest Pokémon!"));
