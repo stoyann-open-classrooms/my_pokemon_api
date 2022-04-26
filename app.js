@@ -11,6 +11,7 @@ const port = 5000;
 // End point
 app.get("/", (req, res) => res.send("Bienvenue sur l'api rest Pokémon!"));
 
+// enpoint  recuperation d'un pokemon avec  son id au format json
 app.get("/api/pokemon/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const pokemon = pokemons.find((pokemon) => pokemon.id === id);
@@ -19,11 +20,11 @@ app.get("/api/pokemon/:id", (req, res) => {
   res.json(helper.success(message, pokemon));
 });
 
-// End point nombre de pokémons dans le pokédex
+// enpoint récuperation de tous les pokemons au format json
+
 app.get("/api/pokemons", (req, res) => {
-  res.send(
-    `Il y'a  ${pokemons.length} pokémons dans le pokédex, pour le moment`
-  );
+  const message = `Votre requête c’est bien passer une liste de ${pokemons.length} pokémons à été trouver.`;
+  res.json(helper.success(message, pokemons));
 });
 
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
