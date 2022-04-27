@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const helper = require("./helper");
 const favicon = require("serve-favicon");
+const bodyParser = require("body-parser");
 const pokemons = require("./mock-pokemon");
 
 const app = express();
@@ -24,6 +25,8 @@ const port = 5000;
 
 // ++++++++++++++++ Middlewares avec le paquet morgan ++++++++++++++++
 app.use(morgan("dev"));
+
+app.use(bodyParser.json());
 // ===========================================================================
 
 // End point
@@ -41,15 +44,17 @@ app.get("/api/pokemon/:id", (req, res) => {
 // enpoint récuperation de tous les pokemons au format json
 
 app.get("/api/pokemons", (req, res) => {
-  const message = `Votre requête c’est bien passer une liste de ${pokemons.length} pokémons à été trouver.`;
+  const message = `Statut: Votre requête c’est bien passer une liste de ${pokemons.length} pokémons à été trouver.`;
   res.json(helper.success(message, pokemons));
 });
 
+// endpoint  post d'un nouveau pokémon
 app.post("/api/pokemons", (req, res) => {
   const id = helper.getUniqueId(pokemons);
   const pokemonCreated = { ...req.body, ...{ id: id, created: new Date() } };
   pokemons.push(pokemonCreated);
-  const message = `Le pokemon ${pokemonCreated}.name} a été ajouter a la base de données`;
+  const message = `Le pokémon ${pokemonCreated.name} a bien été crée.`;
+  res.json(helper.success(message, pokemonCreated));
 });
 
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
