@@ -5,23 +5,26 @@ const morgan = require("morgan");
 const helper = require("./helper");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
+const { Sequelize } = require("sequelize");
 const pokemons = require("./mock-pokemon");
 
 const app = express();
 // declaration du port de l'api rest
 const port = 2100;
 
-// ================================ les Middlewares ==========================
-//les middlewares sont une fonctionnalitées d'express qui effectue des tâches trés diverse
-
-//Les 5 types de middlewares:
-
-// 1___ Les middlewares d'application
-// 2___ Les middlewares de router
-// 3___  Les middlewares de traitement d'erreurs
-// 4___ Les middlewares intégré
-// 5___ Le middlewares d'application
-// 6___ Le middlewares tiers
+const sequelize = new Sequelize("pokedex", "root", "", {
+  host: "localhost",
+  dialect: "mariadb",
+  dialectOptions: {
+    timezone: "Etc/GMT-11",
+  },
+  logging: false,
+});
+sequelize
+  .authenticate()
+  .then((_) =>
+    console.log("La connexion à la base de données a bien été effectuer")
+  );
 
 // ++++++++++++++++ Middlewares avec le paquet morgan ++++++++++++++++
 app.use(morgan("dev"));
