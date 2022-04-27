@@ -14,7 +14,7 @@ const port = 2100;
 app.use(morgan("dev"));
 
 app.use(bodyParser.json());
-//  TODO :  ici les futurs points de terminaison
+//  points de terminaison
 sequelize.initDb();
 require("./src/routes/findAllPokemons")(app);
 require("./src/routes/findPokemonByPk")(app);
@@ -22,7 +22,13 @@ require("./src/routes/createPokemon")(app);
 require("./src/routes/updatePokemon")(app);
 require("./src/routes/deletePokemon")(app);
 
-// demarage de l'api rest sur le port 3000 et afficahge d'un message
+// Géstion des erreurs
+app.use(({ res }) => {
+  const message = `Impossible de trouver la ressource demandée ! sur http://localhost:${port}`;
+  res.status(404).json({ message });
+});
+
+// demarage de l'API rest sur le port 3000 et afficahge d'un message
 app.listen(port, () =>
   console.log("Notre application Node est demarée sur le port 2000")
 );
