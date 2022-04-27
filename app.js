@@ -9,7 +9,7 @@ const pokemons = require("./mock-pokemon");
 
 const app = express();
 // declaration du port de l'api rest
-const port = 8000;
+const port = 2100;
 
 // ================================ les Middlewares ==========================
 //les middlewares sont une fonctionnalitées d'express qui effectue des tâches trés diverse
@@ -69,7 +69,16 @@ app.put("/api/pokemons/:id", (req, res) => {
   res.json(helper.success(message, pokemonUpdated));
 });
 
+// endpoint DELEATE pour supprimer un pokémon
+app.delete("/api/pokemons/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const pokemonDeleted = pokemons.find((pokemon) => pokemon.id === id);
+  pokemons.filter((pokemon) => pokemon.id !== id);
+  const message = `Le pokémon ${pokemonDeleted.name} a bien été supprimé.`;
+  res.json(helper.success(message, pokemonDeleted));
+});
+
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
 app.listen(port, () =>
-  console.log("Notre application Node est demarée sur le port 8080")
+  console.log("Notre application Node est demarée sur le port 2000")
 );
