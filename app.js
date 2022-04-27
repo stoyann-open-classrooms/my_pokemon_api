@@ -15,8 +15,10 @@ app.use(morgan("dev"));
 
 app.use(bodyParser.json());
 //  TODO :  ici les futurs points de terminaison
-
 sequelize.initDb();
+require("./src/routes/findAllPokemons")(app);
+require("./src/routes/findPokemonByPk")(app);
+require("./src/routes/createPokemon")(app);
 
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
 app.listen(port, () =>
