@@ -19,6 +19,8 @@ sequelize.initDb();
 require("./src/routes/findAllPokemons")(app);
 require("./src/routes/findPokemonByPk")(app);
 require("./src/routes/createPokemon")(app);
+require("./src/routes/updatePokemon")(app);
+require("./src/routes/deletePokemon")(app);
 
 // demarage de l'api rest sur le port 3000 et afficahge d'un message
 app.listen(port, () =>
