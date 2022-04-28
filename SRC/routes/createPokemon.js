@@ -13,7 +13,7 @@ module.exports = (app) => {
           return res.status(400).json({ message: error.message, data: error });
         }
         if (error instanceof UniqueConstraintError) {
-          return res.statut(404).json({ message: error.message, data: error });
+          return res.status(404).json({ message: error.message, data: error });
         }
         const message = `Le po
         kémon n'a pas pu être ajoutée. Réesayer dans quelques instants.`;
