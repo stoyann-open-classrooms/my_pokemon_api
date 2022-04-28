@@ -28,7 +28,7 @@ app.use(({ res }) => {
   res.status(404).json({ message });
 });
 
-// demarage de l'API rest sur le port 3000 et afficahge d'un message
+// demarage de l'API rest sur le port 2100 et afficahge d'un message
 app.listen(port, () =>
   console.log("Notre application Node est demarée sur le port 2000")
 );
