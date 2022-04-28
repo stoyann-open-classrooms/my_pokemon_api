@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          msg: "Le nom de ce pokémon est déjà pris.",
+        },
         validate: {
           notEmpty: {
             msg: "Le nom du pokémon ne peut pas être vides.",
